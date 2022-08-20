@@ -1,5 +1,6 @@
 ﻿Console.Write("Введите целое число: ");
 int num = Convert.ToInt32(System.Console.ReadLine());
+if (num <0) num = -num;
 int num1 = num;
 Console.Write("Вывод чисел в промежутку от -N до N: " + -num);
 
