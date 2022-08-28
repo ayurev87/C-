@@ -20,15 +20,13 @@ int num3 = Convert.ToInt32(Console.ReadLine());
 
  int Sred (int num)
  {
-    while (num / 100 == 0)
+    while (num < 99 || num > 999)
     {
-        if (num/100 == 0) 
-        {
-            Console.WriteLine(" Не соотствует трёхзначенное число,");
-            Console.Write(" Снова введите трёхзначное число: ");
-            num = Convert.ToInt32(Console.ReadLine());
-        }
+        Console.WriteLine(" Не соотствует трёхзначенное число,");
+        Console.Write(" Снова введите трёхзначное число: ");
+        num = Convert.ToInt32(Console.ReadLine());
     }
+
     int num1 = num/100*10;
     return num<0 ? -((num/10)- num1):  (num/10)- num1;
  }
