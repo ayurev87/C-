@@ -17,9 +17,8 @@ try
     else
     {
         for (int i = 1; i <= n; i++)
-        {
             Console.WriteLine($" {i}\t{Math.Pow(i, 2)}");
-        }
+        
     }
 }
 catch
