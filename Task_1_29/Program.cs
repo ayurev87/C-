@@ -8,9 +8,10 @@ int i = Convert.ToInt32(Console.ReadLine());
 int[] NewArray(int index)
 {
     int[] arr = new int[index];
+    Random rmd = new Random();
     for ( int i = 0; i < arr.Length; i++)
     {
-        Random rmd = new Random();
+       
         arr[i] = rmd.Next(0,100);
     } 
     return arr;
