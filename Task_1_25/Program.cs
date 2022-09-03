@@ -8,8 +8,15 @@ Console.Write("Введите числа B: ");
 int b = Convert.ToInt32(Console.ReadLine());
 
 double GetPow()
-{
-    return Math.Pow(a,b);
+{   
+    int pow = 1;
+    int index = 0;
+    while (index < b)
+    {
+        pow = pow *a;
+        index++;
+    }
+    return pow;
 }
 
 double result = GetPow();
