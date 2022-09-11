@@ -3,17 +3,17 @@
 
 // Теорема о неравенстве треугольника: каждая сторона треугольника меньше суммы двух других сторон.
 
-Console.Write("Введите число первой стороны теругольника: ");
+Console.Write("Введите сторону A: ");
 int num1 = Convert.ToInt32(Console.ReadLine());
-Console.Write("Введите число второй стороны теругольника: ");
+Console.Write("Введите сторону В: ");
 int num2 = Convert.ToInt32(Console.ReadLine());
-Console.Write("Введите число третьей стороны теругольника: ");
+Console.Write("Введите сторону С: ");
 int num3 = Convert.ToInt32(Console.ReadLine());
 
 bool Triangle(int a, int b, int c)
 {
-    if (a < b + c & b < a + c & c < a + b) return true;
-    else return false;
+    return a < b + c && b < a + c && c < a + b;
+    
 }
 
 // if (a < b + c & b < a + c & c < a + b)
