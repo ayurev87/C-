@@ -75,15 +75,26 @@ int number = Convert.ToInt32(Console.ReadLine());
 // PrintArray10(array, number);
 
 // 4 вариант
-int result = 0;
-int mult = 1;
-while (number > 0)
+// int result = 0;
+// int mult = 1;
+// while (number > 0)
+// {
+//     result += number%2 *mult;
+//     number/=2;
+//     mult*=10;
+// }
+
+// Console.WriteLine(result);
+
+
+// 5 варинат рекурсия
+void DecToBin(int num)
 {
-    result += number%2 *mult;
-    number/=2;
-    mult*=10;
+    if(num==0) return;
+    DecToBin(num /2);
+    Console.Write(num%2);
 }
 
-Console.WriteLine(result);
+DecToBin(number);
 
 
