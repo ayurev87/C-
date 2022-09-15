@@ -3,13 +3,13 @@
 // 0, 7, 8, -2, -2 -> 2
 // -1, -7, 567, 89, 223-> 3
 
-int[] CreateArrRndInt(int size, int min, int max)
+int[] CreateArrReadLine(int size)
 {
     int[] arr = new int[size];
-    Random rnd = new Random();
     for (int i = 0; i < arr.Length; i++)
     {
-        arr[i] = rnd.Next(min, max + 1);
+        Console.Write("Введите целое число: ");
+        arr[i] = Convert.ToInt32(Console.ReadLine());
     }
     return arr;
 }
@@ -34,15 +34,10 @@ void PosSizeArray(int[] arr)
     Console.WriteLine($" -> {pos} положительные чисел");
 }
 
-Console.Write("Введите количество массив: ");
-int size = Convert.ToInt32(Console.ReadLine());
 
-if (size <=0) Console.WriteLine("Некорректное число, а должен быть больше с нуля и целое число!");
-else
-{
-    int[] array1 = CreateArrRndInt(size, -300, 300);
+int[] array1 = CreateArrReadLine(5);
 PrintArray(array1);
 PosSizeArray(array1);
-}
+
 
 
