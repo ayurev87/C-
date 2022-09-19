@@ -29,5 +29,22 @@ void PrintMatrix(int[,] matrix)
         }
         Console.WriteLine("]");
     }
+    Console.WriteLine();
 }
 
+void ReplacementString (int[,] matrix)
+{
+    int replacement =0;
+    int size0 = matrix.GetLength(0);
+    for (int j = 0; j < matrix.GetLength(1); j++)
+    {
+      replacement = matrix[0,j];
+      matrix[0,j] = matrix[size0-1,j];
+      matrix[size0-1,j] = replacement;
+    }
+}
+
+int[,] array2d = CreateMatrixRndInt(4,4, 1, 10);
+PrintMatrix(array2d);
+ReplacementString(array2d);
+PrintMatrix(array2d);
