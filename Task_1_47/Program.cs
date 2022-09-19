@@ -13,9 +13,14 @@ double[,] CreateMatrixRndDouble(int row, int col, int min, int max)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            if (min == 0) matrix[i, j] = rdm.NextDouble() * max;
-            else if (min < 0) matrix[i, j] = rdm.NextDouble() * 2 * max + min;
-            else matrix[i,j] = rdm.NextDouble() * (max - min) + min;
+            // if (min == 0) matrix[i, j] = rdm.NextDouble() * max;
+            // else if (min < 0) matrix[i, j] = rdm.NextDouble() * 2 * max + min;
+            // else matrix[i,j] = rdm.NextDouble() * (max - min) + min;
+            double rand = 0;
+            if (min == 0)  rand = rdm.NextDouble() * max;
+            else if (min < 0) rand = rdm.NextDouble() * 2 * max + min;
+            else rand = rdm.NextDouble() * (max - min) + min;
+            matrix[i, j] = Math.Round(rand, 1);
         }
     }
     return matrix;
@@ -28,17 +33,19 @@ void PrintMatrix(double[,] matrix)
         Console.Write("[");
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            if (j < matrix.GetLength(1) - 1)
-            {
-                Console.Write("{0:0.0}", matrix[i,j]);
-                Console.Write(", ");
-            }
-            else
-            {
-                Console.Write("{0:0.0}", matrix[i,j]);
-                Console.WriteLine(" ]");
-            }
+            // if (j < matrix.GetLength(1) - 1)
+            // {
+            //     Console.Write("{0:0.0}", matrix[i,j]);
+            //     Console.Write(", ");
+            // }
+            // else
+            // {
+            //     Console.Write("{0:0.0}", matrix[i,j]);
+            //     Console.WriteLine(" ]");
+            // }
+            Console.Write(j < matrix.GetLength(1)-1 ? $"{matrix[i, j], 5} | " : $"{matrix[i, j], 5}");
         }
+        Console.WriteLine("]");
     }
 }
 
