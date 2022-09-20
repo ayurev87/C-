@@ -62,7 +62,7 @@ int[,] DeleteRowAndColOfMinValue(int[,] matrix)
     int min = matrix[0, 0];
     // int minRow = 0;
     // int minCol = 0;
-    int indexCol = 0;
+    int countRow = 0; 
     int count = 0;
     int countCol = 0;
     for (int i = 0; i < matrix.GetLength(0); i++)
@@ -78,25 +78,23 @@ int[,] DeleteRowAndColOfMinValue(int[,] matrix)
         }
     }
     Console.WriteLine(min);
-     for (int i = 0; i < matrix.GetLength(0); i++)
+  
+   
+     for (int i = 0; i < matrix.GetLength(0); i++) // найдет количество наименьше.
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
             if (min == matrix[i, j])
             {
-                if(indexCol!= j)
-                {
-                    countCol++;
-                    indexCol = j;
-                }
                 count++;
             }
         }
     }
-    int[] DelRow = new int[count];
+    Console.WriteLine($"1 этап {count}");
+    int[] DelRow = new int[count]; //установить количество наименьше элементы на массиве.
     int[] DelCol = new int[count];
     int index= 0;
-    for (int i = 0; i < matrix.GetLength(0); i++)
+    for (int i = 0; i < matrix.GetLength(0); i++) //найдет пересечение элементы.
     {
         for (int j = 1; j < matrix.GetLength(1); j++)
         {
@@ -108,10 +106,20 @@ int[,] DeleteRowAndColOfMinValue(int[,] matrix)
             }
         }
     }
-    Console.WriteLine(count);
-    int[,] result = new int[matrix.GetLength(0) - countCol, matrix.GetLength(1) - count];
-    Console.WriteLine(matrix.GetLength(0) - count);
-    Console.WriteLine(matrix.GetLength(1) - count);
+     Console.WriteLine($"2 этап");
+    for (int i = 0; i < DelRow.Length; i++) //найти количество убрать строки и столбец
+    {
+        for (int j = i+1; j < DelRow.Length; j++)
+        {
+            if(DelRow[i] != DelRow[j]) countRow++;
+            if(DelCol[i] != DelCol[j]) countCol++;
+        }
+    }
+
+  Console.WriteLine($"3 этап");
+    int[,] result = new int[matrix.GetLength(0) - countRow, matrix.GetLength(1) - countCol];
+    Console.WriteLine(matrix.GetLength(0) - countRow);
+    Console.WriteLine(matrix.GetLength(1) -  countCol);
     int k = 0;
     int m = 0;
     index=0;
@@ -120,9 +128,11 @@ int[,] DeleteRowAndColOfMinValue(int[,] matrix)
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
             if (FindIntersection(i,j,index,count,DelRow,DelCol))
-            {              
+            {   
+                   Console.WriteLine($"{i},{j} прошло");        
                 result[k,m] = matrix[i,j];
                 m++;
+                index++;
             }
            
             // if (i < minRow && j < minCol) result[i, j] = matrix[i, j];
