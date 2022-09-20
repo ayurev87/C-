@@ -51,7 +51,7 @@ int[] SumItemString(int[,] matrix)
     return summaString;
 }
 
-void NumStringMinSummaItems(int[] array)
+int NumStringMinSummaItems(int[] array)
 {
     int min = array[0];
     int indexmin = 0;
@@ -63,11 +63,12 @@ void NumStringMinSummaItems(int[] array)
             indexmin = i;
         }
     }
-    Console.WriteLine($"Cуммы элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: {indexmin+1} строка");
+    return indexmin+1;
 }
 
 int[,] array2D = CreateMatrixRndInt(4,4,0,10);
 PrintMatrix(array2D);
 Console.WriteLine();
 int[] array = SumItemString(array2D);
-NumStringMinSummaItems(array);
+int result = NumStringMinSummaItems(array);
+Console.WriteLine($"Cуммы элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: {result} строка");
