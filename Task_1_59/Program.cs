@@ -43,44 +43,46 @@ void PrintMatrix(int[,] matrix)
     Console.WriteLine();
 }
 
-bool FindIntersection(int i, int j, int index, int count, int[] DelRow, int[] DelCol)
+// bool FindIntersection(int i, int j, int index, int count, int[] DelRow, int[] DelCol)
+// {
+//     bool result = false;
+//     if (index == count) return true;
+//     if (i != DelRow[index] && j != DelCol[index])
+//     {
+//         index++;
+//         result = FindIntersection(i, j, index, count, DelRow, DelCol);
+//     }
+//     return result;
+// }
+bool FindIntersection(int i, int index, int count, int[] Del)
 {
     bool result = false;
-    if(index == count) return true;
-    if(i != DelRow[index] && j != DelCol[index])
+    if (index == count) return true;
+    if (i != Del[index])
     {
         index++;
-        result = FindIntersection(i,j,index,count,DelRow,DelCol);
+        result = FindIntersection(i,index, count, Del);
     }
     return result;
 }
 
-
-
 int[,] DeleteRowAndColOfMinValue(int[,] matrix)
 {
     int min = matrix[0, 0];
-    // int minRow = 0;
-    // int minCol = 0;
-    int countRow = 0; 
+
     int count = 0;
-    int countCol = 0;
-    for (int i = 0; i < matrix.GetLength(0); i++)
+
+    for (int i = 0; i < matrix.GetLength(0); i++) //найдет наименьше элемент
     {
         for (int j = 1; j < matrix.GetLength(1); j++)
         {
             if (min > matrix[i, j])
             {
                 min = matrix[i, j];
-                // minRow = i;
-                // minCol = j;
             }
         }
     }
-    Console.WriteLine(min);
-  
-   
-     for (int i = 0; i < matrix.GetLength(0); i++) // найдет количество наименьше.
+    for (int i = 0; i < matrix.GetLength(0); i++) // найдет количество наименьше элементо.
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
@@ -90,13 +92,12 @@ int[,] DeleteRowAndColOfMinValue(int[,] matrix)
             }
         }
     }
-    Console.WriteLine($"1 этап {count}");
     int[] DelRow = new int[count]; //установить количество наименьше элементы на массиве.
     int[] DelCol = new int[count];
-    int index= 0;
+    int index = 0;
     for (int i = 0; i < matrix.GetLength(0); i++) //найдет пересечение элементы.
     {
-        for (int j = 1; j < matrix.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
             if (min == matrix[i, j])
             {
@@ -105,43 +106,44 @@ int[,] DeleteRowAndColOfMinValue(int[,] matrix)
                 index++;
             }
         }
+
     }
-     Console.WriteLine($"2 этап");
+    int countRow = 0;
+    int countCol = 0;
     for (int i = 0; i < DelRow.Length; i++) //найти количество убрать строки и столбец
     {
-        for (int j = i+1; j < DelRow.Length; j++)
+        for (int j = i + 1; j < DelRow.Length; j++)
         {
-            if(DelRow[i] != DelRow[j]) countRow++;
-            if(DelCol[i] != DelCol[j]) countCol++;
+            if (DelRow[i] == DelRow[j]) countRow++;
+            if (DelCol[i] == DelCol[j]) countCol++;
         }
     }
-
-  Console.WriteLine($"3 этап");
+    countRow = DelRow.Length - countRow; // остаток количество строки и столбец
+    countCol = DelCol.Length - countCol;
     int[,] result = new int[matrix.GetLength(0) - countRow, matrix.GetLength(1) - countCol];
-    Console.WriteLine(matrix.GetLength(0) - countRow);
-    Console.WriteLine(matrix.GetLength(1) -  countCol);
     int k = 0;
     int m = 0;
-    index=0;
+    index = 0;
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < matrix.GetLength(1); j++)
+        if (FindIntersection(i, index, DelRow.Length, DelRow))
         {
-            if (FindIntersection(i,j,index,count,DelRow,DelCol))
-            {   
-                   Console.WriteLine($"{i},{j} прошло");        
-                result[k,m] = matrix[i,j];
-                m++;
-                index++;
+            for (int j = 0; j < matrix.GetLength(1); j++)
+            {
+                if (FindIntersection(j, index, DelCol.Length, DelCol))
+                {
+                    result[k, m] = matrix[i, j];
+                    m++;
+                }
+
+                // if (i < minRow && j < minCol) result[i, j] = matrix[i, j];
+                // else if (i >= minRow && j >= minCol) result[i, j] = matrix[i + 1, j + 1];
+                // else if (i < minRow && j >= minCol) result[i, j] = matrix[i, j + 1];
+                // else if (i >= minRow && j < minCol) result[i, j] = matrix[i + 1, j];
             }
-           
-            // if (i < minRow && j < minCol) result[i, j] = matrix[i, j];
-            // else if (i >= minRow && j >= minCol) result[i, j] = matrix[i + 1, j + 1];
-            // else if (i < minRow && j >= minCol) result[i, j] = matrix[i, j + 1];
-            // else if (i >= minRow && j < minCol) result[i, j] = matrix[i + 1, j];
+            k++;
+            m = 0;
         }
-        if (i != DelRow[index]) k++;
-        m = 0;
     }
     return result;
 }
