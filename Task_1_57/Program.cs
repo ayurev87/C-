@@ -66,18 +66,14 @@ void distionary(int[,] matrix)
         if(value != array[i])
         {
             Console.Write($"Значение {value} встречается {count} ");
-            Console.WriteLine(count > 3 && count < 5? "раза": "раз");
+            Console.WriteLine(count > 2 && count < 5? "раза": "раз");
             value=array[i];
             count=1;
         }        
-        else 
-        {
-            value=array[i];
-            count++;
-        }
+        else count++;
     }
     Console.Write($"Значение {value} встречается {count} ");
-    Console.WriteLine(count > 3 && count < 5? "раза": "раз");
+    Console.WriteLine(count > 2 && count < 5? "раза": "раз");
 }
 
 int[,] array2D = CreateMatrixRndInt(4,4,0,10);
