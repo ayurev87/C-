@@ -5,18 +5,62 @@
 // 11 16 15 06
 // 10 09 08 07
 
-bool Recursiya(int i, int j, int index, int count, int[] DelRow, int[] DelCol)
+int row = 6;
+int col = 6;
+int[,] CreateSpiralMatrix(int row, int col) //Создать Спираль массив
 {
-    bool result = false;
-    if(index == count) return true;
-    if(i != DelRow[index] && j != DelCol[index])
+    int[,] matrix = new int[row, col];
+    int i = 0;
+    int j = 0;
+    int size = matrix.Length + 1;
+    int m = 0;
+    int n = 0;
+    Console.WriteLine(size);
+    for (int k = 1; k < size; k++)
     {
-        index++;
-        result = Recursiya(i,j,index,count,DelRow,DelCol);
-       
+        matrix[i, j] = k;
+        if (j < col - 1 && matrix[i, m = j + 1] == 0 && n == 0)
+        {
+            j++;
+        }
+        else if (i < row - 1 && matrix[m = i + 1, j] == 0)
+        {
+            i++;
+            n = 1;
+        }
+        else if (j > 0 && matrix[i, m = j - 1] == 0)
+        {
+            j--;
+        }
+        else if (i > 0 && matrix[m = i - 1, j] == 0)
+        {
+            i--;
+        }
+        else
+        {
+            n = 0;
+            j++;
+        }
+
     }
-    return result;
+    return matrix;
 }
-int[] array1 = {2,5};
-int[] array2 = {6,3};
-Console.WriteLine(Recursiya(1, 4, 0, 2, array1, array2));
+
+void PrintMatrix(int[,] matrix)
+{
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            // if (j < matrix.GetLength(1) - 1) Console.Write($"{matrix[i,j], 4}, ");
+            // else Console.Write($"{matrix[i,j], 4}");
+            Console.Write("{0:00}", matrix[i, j]);
+            Console.Write("  ");
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+int[,] array2d = CreateSpiralMatrix(row, col);
+PrintMatrix(array2d);
